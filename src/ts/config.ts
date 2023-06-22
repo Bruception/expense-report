@@ -51,13 +51,8 @@ export const config: ExpenseConfiguration = {
                     payee: 'Leandra Berrios',
                 },
                 {
-                    payer: 'Hazel Corrales',
-                    percentage: 11.7,
-                    payee: 'Leandra Berrios',
-                },
-                {
                     payer: 'Manuel Berrios',
-                    percentage: 11.7,
+                    percentage: 23.4,
                     payee: 'Leandra Berrios',
                 },
                 {

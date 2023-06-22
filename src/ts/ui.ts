@@ -35,7 +35,7 @@ export const generateExpenseReport = (liveExpenseReport: ExpenseReport) => {
             expenseItem.className = 'expense-item';
 
             const payee = document.createElement('span');
-            payee.textContent = `Pay To: ${expense.payee} `;
+            payee.innerHTML = `Pay To: <span class="highlight">${expense.payee}</span> `;
             expenseItem.appendChild(payee);
 
             const amount = document.createElement('div');
