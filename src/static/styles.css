@@ -3,23 +3,32 @@
     flex-direction: column;
     padding: 20px;
     font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 form {
-    width: 300px;
     margin-bottom: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 label {
     font-weight: bold;
+    display: block;
+    margin-top: 10px;
 }
 
 input[type='number'] {
     width: 100%;
-    padding: 8px;
+    box-sizing: border-box;
+    padding: 10px;
     margin: 8px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 input[type='number']:focus {
@@ -34,6 +43,10 @@ input[type='number']:focus {
 
 .contributor-container {
     margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    background: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 h3 {
@@ -43,6 +56,9 @@ h3 {
 
 .expense-item {
     margin-bottom: 10px;
+    padding: 10px;
+    border-left: 4px solid #007bff;
+    background: #f8f9fa;
 }
 
 .expense-item span {
@@ -51,12 +67,13 @@ h3 {
 
 .expense-item ul {
     margin-top: 5px;
-    margin-left: 20px;
+    padding-left: 20px;
     list-style: disc;
 }
 
 .total {
     font-weight: bold;
+    font-size: 18px;
 }
 
 hr {
