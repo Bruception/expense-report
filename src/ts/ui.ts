@@ -30,7 +30,9 @@ export const generateExpenseReport = (liveExpenseReport: ExpenseReport) => {
         contributorTitle.textContent = contributor;
         contributorContainer.appendChild(contributorTitle);
 
-        expenseRecord.expenses.forEach((expense) => {
+        const nonZeroExpenses = expenseRecord.expenses.filter((expense) => expense.amount > 0);
+
+        nonZeroExpenses.forEach((expense) => {
             const expenseItem = document.createElement('div');
             expenseItem.className = 'expense-item';
 
@@ -71,26 +73,33 @@ export const generateExpenseReport = (liveExpenseReport: ExpenseReport) => {
 const loadFormFromURL = (config: ExpenseConfiguration) => {
     const urlParams = new URLSearchParams(window.location.search);
     const encodedContributionAmounts = urlParams.get('contributions');
-    if (encodedContributionAmounts) {
-        const decodedContributionAmounts = JSON.parse(utils.base64URLDecode(encodedContributionAmounts));
-        const form = document.getElementById('contribution-form');
-        if (form) {
-            const formData = new FormData(form as HTMLFormElement);
-            const liveContributionAmounts = Object.fromEntries(formData.entries()) as Record<string, string>;
-            const updatedContributionAmounts = {
-                ...liveContributionAmounts,
-                ...decodedContributionAmounts,
-            };
-            Object.entries(updatedContributionAmounts).forEach(([name, value]) => {
-                const input = document.querySelector(`input[name="${name}"]`) as HTMLInputElement | undefined;
-                if (input) {
-                    input.value = value as string;
-                }
-            });
-            const liveExpenseReport = calculateExpenseReport(updatedContributionAmounts, config);
-            generateExpenseReport(liveExpenseReport);
-        }
+    if (!encodedContributionAmounts) {
+        return;
     }
+
+    const decodedContributionAmounts = JSON.parse(utils.base64URLDecode(encodedContributionAmounts));
+    const form = document.getElementById('contribution-form');
+
+    if (!form) {
+        return;
+    }
+
+    const formData = new FormData(form as HTMLFormElement);
+    const liveContributionAmounts = Object.fromEntries(formData.entries()) as Record<string, string>;
+    const updatedContributionAmounts = {
+        ...liveContributionAmounts,
+        ...decodedContributionAmounts,
+    };
+
+    Object.entries(updatedContributionAmounts).forEach(([name, value]) => {
+        const input = document.querySelector(`input[name="${name}"]`) as HTMLInputElement | undefined;
+        if (input) {
+            input.value = value as string;
+        }
+    });
+
+    const liveExpenseReport = calculateExpenseReport(updatedContributionAmounts, config);
+    generateExpenseReport(liveExpenseReport);
 };
 
 export const generateUI = (config: ExpenseConfiguration) => {

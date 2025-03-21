@@ -61,7 +61,7 @@ export const calculateExpenseReport = (
             const expenseForContributor = calculateExpense(expense, totalFromContributions);
 
             const itemizedExpenseRecord: ItemizedExpenseRecord = {
-                payee: expense.payee,
+                payee: expense.payee ?? expenseRecord.payee,
                 amount: expenseForContributor,
                 items: [...expenseRecord.contributions],
             };

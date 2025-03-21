@@ -12,7 +12,7 @@ type Contributor = {
 
 interface BaseExpense {
     payer: string;
-    payee: string;
+    payee?: string;
 }
 
 interface PercentageExpense extends BaseExpense {
@@ -28,6 +28,7 @@ type Expense = PercentageExpense | FixedExpense;
 type ExpenseRecord = {
     contributions: string[];
     expenses: Expense[];
+    payee: string;
 };
 
 type ExpenseConfiguration = {
