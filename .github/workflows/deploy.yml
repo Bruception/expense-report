@@ -1,0 +1,35 @@
+name: Deploy site
+
+permissions:
+    contents: write
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout 🤗
+              uses: actions/checkout@v3
+
+            - name: Set up Node.js 🤔
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18.16.0'
+
+            - name: Install, Lint, and Build 🧐
+              run: |
+                  npm ci
+                  npm run lint
+                  npm run pretty
+                  npm run build-prod
+
+            - name: Deploy 🥳
+              uses: JamesIves/github-pages-deploy-action@v4.2.3
+              with:
+                  branch: gh-pages
+                  folder: dist
+                  commit-message: Deployed 🥳
